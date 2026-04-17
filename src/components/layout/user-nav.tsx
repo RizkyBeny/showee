@@ -1,35 +1,43 @@
 "use client"
 import { LogOut } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import Link from 'next/link'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useRouter } from "next/navigation"
 
 export function UserNav() {
+  const router = useRouter()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="relative h-8 w-8 flex items-center justify-center rounded-full outline-none hover:opacity-80">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback>RN</AvatarFallback>
-          </Avatar>
+        <Avatar className="h-8 w-8">
+          <AvatarFallback>RN</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
-        <DropdownMenuGroup>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Rina EO</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                rina@eo.com
-              </p>
-            </div>
-          </DropdownMenuLabel>
-        </DropdownMenuGroup>
+        {/* User info — pakai div biasa, bukan GroupLabel */}
+        <div className="px-2 py-2">
+          <p className="text-sm font-medium leading-none">Rina EO</p>
+          <p className="text-xs leading-none text-muted-foreground mt-1">
+            rina@eo.com
+          </p>
+        </div>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer text-destructive focus:bg-destructive focus:text-destructive-foreground p-0">
-             <Link href="/login" className="w-full flex items-center px-1.5 py-1">
-               <LogOut className="mr-2 h-4 w-4" />
-               <span>Log out</span>
-             </Link>
+          <DropdownMenuItem
+            variant="destructive"
+            className="cursor-pointer"
+            onClick={() => router.push("/login")}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
